@@ -12,8 +12,8 @@ class DataIngestion:
 
     def download_data(self):
         s3 = boto3.resource(service_name='s3', region_name='us-east-1',
-                   aws_access_key_id="abc",
-                   aws_secret_access_key="abc")
+                   aws_access_key_id="",
+                   aws_secret_access_key="g+")
         
         obj = s3.Bucket('forest-cover-type').Object('dataset/train.csv').get()
         
@@ -30,4 +30,4 @@ class DataIngestion:
         self.train.to_csv(train_file_path, index=False)
         log.info(f"data saved successfully at {train_file_path}")
 
-        log.info(f">>>>>>>>>>>>>>>>> {STAGE_NAME} compleated successfully compleated")
+        log.info(f">>>>>>>>>>>>>>>>> {STAGE_NAME} compleated successfully compleated\n")

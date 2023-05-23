@@ -4,3 +4,12 @@ data_ingestion:
   root_dir: artifacts/data_ingestion
   train_file: train.csv
   test_file: test.csv
+
+data_preprocessing:
+  root_dir: artifacts/data_preprocessing
+  localfile: data_preprocess.csv
+
+training:
+  root_dir: artifacts/training
+  model_save_file: model.pkl
+  score_file: score.json
