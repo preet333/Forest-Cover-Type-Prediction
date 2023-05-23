@@ -1,0 +1,16 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+pyYaml
+joblib
+requests
+imblearn
+jupyterlab
+mlflow
+dvc
+awscli
+dvc-s3
+
+-e .
