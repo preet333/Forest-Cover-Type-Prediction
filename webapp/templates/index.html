@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<!-- <link rel="stylesheet" type="text/css" href="../static/css/styles.css"> -->
+	<link rel="stylesheet" type="text/css"  href="static/styles.css">
+</head>
+<style>
+	html{
+		font-size: 20px;
+	}
+	body{
+		background: lightgray;
+	}
+	.ml-container{
+		text-align: center; margin-top: 10%;
+	}
+</style>
+<body >
+
+	<header>
+		<div class="container">
+		<!-- <div id="brandname">
+			Spam Detector App using KNN(K-nearest neighbors)
+		</div>
+		<h2>Spam Detector For E-mail</h2> -->
+		
+	</div>
+	</header>
+
+	<div class="ml-container" >
+
+		<form action="{{ url_for('predict')}}" method="POST">
+			<h2>House Price Prediction.</h2>
+		<p>Enter Your House squarefoot area and room</p>
+		<!-- <input type="text" name="comment"/> -->
+		<input type="text" name="squarefoot" placeholder="square foot area" required title="area in squre foot">
+        <input type="text" name="room" placeholder="rooms" required title="area in squre foot">
+
+		<br/>
+
+		<input type="Submit" class="btn-info" value="Predict">
+		
+	</form>
+		{{ prediction }}
+	</div>
+</body>
+</html>

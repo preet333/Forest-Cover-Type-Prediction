@@ -7,9 +7,9 @@ data_ingestion:
 
 data_preprocessing:
   root_dir: artifacts/data_preprocessing
-  localfile: data_preprocess.csv
+  local_file: data_preprocess.csv
 
 training:
   root_dir: artifacts/training
-  model_save_file: model.pkl
-  score_file: score.json
+  local_model_file: model.pkl
+  score_save: score.json

@@ -1,5 +1,5 @@
 [core]
+    remote = artifacts_store
     autostage = true
-    remote = datastore
-['remote "datastore"']
+['remote "artifacts_store"']
     url = s3://forest-cover-type/dataset/dvc-remote-data

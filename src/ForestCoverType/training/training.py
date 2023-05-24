@@ -21,8 +21,8 @@ class Training:
         df = pd.read_csv(dataset_path)
         
         #splitting data
-        x = df.drop('Cover_Type', axis=1)
-        y = df['Cover_Type']
+        x = df.drop('Loan_Status', axis=1)
+        y = df['Loan_Status']
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=33)
         log.info(f"Splitting dataset into train and test completed")
 
@@ -35,6 +35,7 @@ class Training:
         y_pred = rf.predict(x_test)
         f1_test_score = f1_score(y_test, y_pred, average='macro')
         test_accuracy_score = accuracy_score(y_test, y_pred)
+        print(test_accuracy_score)
         scores = {
             'test_accuracy': test_accuracy_score,
             'f1_score': f1_test_score
@@ -42,13 +43,13 @@ class Training:
 
         # saving model and score
         training_root_dir = self.config['root_dir']
-        model_file = self.config['model_save_file']
+        model_file = self.config['local_model_file']
         model_file_path = os.path.join(training_root_dir, model_file)
         
         joblib.dump(rf, model_file_path)
         log.info(f"Trained model save at {model_file_path}")
 
-        score_file = self.config['score_file']
+        score_file = self.config['score_save']
         score_file_path =os.path.join(training_root_dir, score_file)
         log.info(f"predicting test score save at {score_file_path}")
 

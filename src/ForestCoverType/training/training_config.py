@@ -8,7 +8,7 @@ class TrainingConfigurationManager:
     def __init__(self, config_file_path = CONFIG_FILE_PATH):
         log.info(f">>>>>>>>>>>>>>>>> {STAGE_NAME} started")
         self.config = read_yaml_file(config_file_path)
-        self.dataset_load = os.path.join(self.config['data_preprocessing']['root_dir'], self.config['data_preprocessing']['localfile'])
+        self.dataset_load = os.path.join(self.config['data_preprocessing']['root_dir'], self.config['data_preprocessing']['local_file'])
         create_directories([self.config['artifacts_root']])
 
     def training_config(self):
@@ -17,6 +17,6 @@ class TrainingConfigurationManager:
         create_directories([config_root_dir])
 
         training_config = {'root_dir': Path(config['root_dir']), 'dataset_load': Path(self.dataset_load),
-                           'model_save_file': Path(config['model_save_file']), 'score_file': Path(config['score_file'])}
+                           'local_model_file': Path(config['local_model_file']), 'score_save': Path(config['score_save'])}
         
         return training_config

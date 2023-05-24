@@ -15,9 +15,13 @@ def start_training_pipeline():
     data_preprocessing_configuration = DataPreprocessingConfigurationManager()
     data_preprocessing_config = data_preprocessing_configuration.data_preprocessing_config()
     data_preprocessing = DataPreprocessing(config=data_preprocessing_config)
-    data_preprocessing.preprocessing_data()
+    data_preprocessing.handle_missing_value()
+    data_preprocessing.cat_to_numeric()
+    data_preprocessing.handle_imbalanced_data()
+    data_preprocessing.scaling_data()
+    data_preprocessing.save_preprocess_data()
 
-    # Training Stage
+    # # Training Stage
     training_configuration = TrainingConfigurationManager()
     training_config = training_configuration.training_config()
     training = Training(config=training_config)
