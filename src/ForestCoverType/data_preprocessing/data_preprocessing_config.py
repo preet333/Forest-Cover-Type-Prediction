@@ -18,7 +18,7 @@ class DataPreprocessingConfigurationManager:
         create_directories([config_root_dir])
 
         data_preprocessint_config = {'root_dir': Path(config['root_dir']), 'dataset_load': Path(self.dataset_load),
-                                      'local_file': Path(config['local_file'])}
+                                     'scaling_model_file': Path(config['scaling_model_file']),'local_file': Path(config['local_file'])}
 
         return data_preprocessint_config
 

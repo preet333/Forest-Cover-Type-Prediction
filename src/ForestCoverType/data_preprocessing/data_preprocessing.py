@@ -3,8 +3,9 @@ import pandas as pd
 from ForestCoverType import log
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from pathlib import Path
+import joblib
 
 STAGE_NAME = "Data Preprocessing Stage"
 
@@ -33,7 +34,9 @@ class DataPreprocessing:
         self.df['Loan_Status'] = self.df['Loan_Status'].replace(['Y', 'N'], [1, 0])
 
         # now convert our independent features to numeric with OneHotEncoding
-        self.df = pd.get_dummies(self.df)
+        one_hot = OneHotEncoder()
+        self.df = one_hot.fit_transform(self.df)
+        print(self.df)
         log.info("Categorical Variable successfully converted into Numerical")
 
     def handle_imbalanced_data(self):
@@ -47,7 +50,16 @@ class DataPreprocessing:
         scaler = StandardScaler()
         self.df_scaled = pd.DataFrame(scaler.fit_transform(self.df_over_sample.drop("Loan_Status", axis=1)), columns=self.df_over_sample.columns[:-1])
         self.df_scaled['Loan_Status'] = self.df_over_sample['Loan_Status']
-        log.info("Scaling data with StandardScaler Dsone")
+        
+        log.info("Scaling data with StandardScaler Done")
+        
+        # saving Standard Scaler model
+        data_preprocee_dir = self.config['root_dir']
+        scaler_model_file = self.config['scaling_model_file']
+        scaler_model_file_path = os.path.join(data_preprocee_dir, scaler_model_file)
+        joblib.dump(scaler, scaler_model_file_path)
+        log.info(f"StandardScaler model save at {scaler_model_file_path}")
+
          
     def save_preprocess_data(self):
         data_preprocess_root_dir =  Path(self.config['root_dir'])

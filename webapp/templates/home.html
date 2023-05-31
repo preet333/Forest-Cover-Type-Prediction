@@ -1,48 +1,143 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Home</title>
-	<!-- <link rel="stylesheet" type="text/css" href="../static/css/styles.css"> -->
-	<link rel="stylesheet" type="text/css"  href="static/styles.css">
-</head>
-<style>
-	html{
-		font-size: 20px;
-	}
-	body{
-		background: lightgray;
-	}
-	.ml-container{
-		text-align: center; margin-top: 10%;
-	}
-</style>
-<body >
+	<head>
+		<meta charset="utf-8">
+		<title>FormWizard_v1</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="colorlib.com">
 
-	<header>
-		<div class="container">
-		<!-- <div id="brandname">
-			Spam Detector App using KNN(K-nearest neighbors)
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-design-iconic-font/css/material-design-iconic-font.css')}}">
+		<!-- <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.css"> -->
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	</head>
+	<body>
+		<div class="wrapper">
+            <form action="{{ url_for('predict')}}" id="wizard" method="POST">
+        		<!-- SECTION 1 -->
+                <h2></h2>
+                <section>
+                    <div class="inner">
+						<div class="image-holder">
+							<img src="{{ url_for('static', filename='images/loan.jpg')}}" alt="">
+						</div>
+						<div class="form-content" >
+							<div class="form-header">
+								<h3>Loan Approval</h3>
+							</div>
+						
+							<div class="form-row">
+								<div class="form-holder" style="align-self: flex-end; transform: translateY(4px); margin-right: -5%;">
+									<div class="checkbox-tick">
+										<label class="male">
+											<input type="radio" name="gender" value="Male" checked> Male<br>
+											<span class="checkmark"></span>
+										</label>
+										<label class="female">
+											<input type="radio" name="gender" value="Female"> Female<br>
+											<span class="checkmark"></span>
+										</label>
+									</div>
+								</div>
+								<div class="form-holder" style="align-self: flex-end; transform: translateY(4px);">
+									<div class="checkbox-tick">
+										<label class="male">
+											<input type="radio" name="Married" value="Yes" checked> Marrieed-Y<br>
+											<span class="checkmark"></span>
+										</label>
+										<label class="female">
+											<input type="radio" name="Married" value="No"> Married-N<br>
+											<span class="checkmark"></span>
+										</label>
+									</div>
+								</div>
+								
+							</div>
+							<div class="form-row">
+								<select name="Dependents" id="Dependents" class="form-holder">
+									<option value="" disabled selected hidden>Dependents</option>
+									<option value="0" class="form-control">0</option>
+									<option value="1" class="form-control">1</option>
+									<option value="2" class="form-control">2</option>
+									<option value="3+" class="form-control">3+</option>
+								  </select>
+								<div class="form-holder">
+									<select name="Education" id="Education" >
+										<option value="" disabled selected hidden>Eduction</option>
+										<option value="Graduate" class="form-control">Graduate</option>
+										<option value="Not Graduate" class="form-control">Not Graduate</option>
+									  </select>
+								</div>
+								<div class="form-holder" >
+									<select name="Self_Employed" id="Self_Employed" >
+										<option value="" disabled selected hidden>Self_Employed</option>
+										<option value="Yes" class="form-control">Yes</option>
+										<option value="No" class="form-control">No</option>
+									  </select>
+								</div>
+								
+								
+							</div>
+							<div class="form-row">
+								<div class="form-holder">
+									<input type="text" placeholder="ApplicantIncome" name="ApplicantIncome" class="form-control">
+								</div>
+								<div class="form-holder">
+									<input type="text" placeholder="CoapplicantIncome" name="CoapplicantIncome"class="form-control">
+								</div>
+								<div class="form-holder">
+									<input type="text" placeholder="LoanAmount" name="LoanAmount"  class="form-control">
+								</div>
+								
+							</div>
+							<div class="form-row">
+								<div class="form-holder">
+									<input type="text" placeholder="LoanAmountTerm" name="LoanAmountTerm" class="form-control">
+								</div>
+								
+								<div class="form-holder">
+									<select name="Credit_History" id="Credit_History" >
+										<option value="" disabled selected hidden>Credit_History</option>
+										<option value="1" class="form-control">Yes</option>
+										<option value="0" class="form-control">No</option>
+									  </select>
+								</div>
+								<div class="form-holder">
+									<select name="Property_Area" id="Property_Area" >
+										<option value="" disabled selected hidden>Property_Area</option>
+										<option value="Rural" class="form-control">Rural</option>
+										<option value="Semiurban" class="form-control">Semiurban</option>
+										<option value="Urban" class="form-control">Urban</option>>
+									  </select>
+								
+								</div>
+								
+								
+								
+							</div>
+							
+							<input type="Submit"  class="form-control" value="Predict">
+						
+						</div>
+						
+					</div>
+					
+                </section>
+				
+            </form>
+			
 		</div>
-		<h2>Spam Detector For E-mail</h2> -->
-		
-	</div>
-	</header>
 
-	<div class="ml-container" >
+		<!-- JQUERY -->
+		<script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
 
-		<form action="{{ url_for('predict')}}" method="POST">
-			<h2>House Price Prediction.</h2>
-		<p>Enter Your House squarefoot area and room</p>
-		<!-- <input type="text" name="comment"/> -->
-		<input type="text" name="squarefoot" placeholder="square foot area" required title="area in squre foot">
-        <input type="text" name="room" placeholder="rooms" required title="area in squre foot">
 
-		<br/>
+		<!-- JQUERY STEP -->
+		<script src="{{ url_for('static', filename='js/jquery.steps.js')}}"></script>
+		<script src="{{ url_for('static', filename='js/main.js')}}"></script>
 
-		<input type="Submit" class="btn-info" value="Predict">
-		
-	</form>
-		
-	</div>
+		<!-- Template created and distributed by Colorlib -->
 </body>
 </html>

@@ -8,6 +8,7 @@ data_ingestion:
 data_preprocessing:
   root_dir: artifacts/data_preprocessing
   local_file: data_preprocess.csv
+  scaling_model_file: scaler.pkl
 
 training:
   root_dir: artifacts/training
