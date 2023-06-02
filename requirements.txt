@@ -10,7 +10,6 @@ imblearn
 jupyterlab
 mlflow
 dvc
-awscli
 dvc-s3
 flask
 python-dotenv

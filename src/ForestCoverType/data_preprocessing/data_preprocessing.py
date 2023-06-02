@@ -34,15 +34,15 @@ class DataPreprocessing:
         self.df['Loan_Status'] = self.df['Loan_Status'].replace(['Y', 'N'], [1, 0])
 
         # now convert our independent features to numeric with OneHotEncoding
-        one_hot = OneHotEncoder()
-        self.df = one_hot.fit_transform(self.df)
-        print(self.df)
+        self.df = pd.get_dummies(self.df)
         log.info("Categorical Variable successfully converted into Numerical")
 
     def handle_imbalanced_data(self):
         # using oversampling SMOTE
         sm = SMOTE()
-        self.df_over_sample, df_loan_new = sm.fit_resample(self.df.drop('Loan_Status', axis=1), self.df.Loan_Status)
+        self.df_3 = self.df.drop('Loan_Status', axis=1)
+        # self.df_over_sample, df_loan_new = sm.fit_resample(self.df.drop('Loan_Status', axis=1), self.df.Loan_Status)
+        self.df_over_sample, df_loan_new = sm.fit_resample(self.df_3, self.df.Loan_Status)
         self.df_over_sample['Loan_Status'] = df_loan_new
         log.info("Handling imbalanced data with oversampling SMOTE done")
         
