@@ -13,5 +13,7 @@ dvc
 dvc-s3
 flask
 python-dotenv
+awscli
+boto3
 
 -e .
