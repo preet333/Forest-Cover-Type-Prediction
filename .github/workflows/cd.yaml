@@ -33,7 +33,7 @@ jobs:
       - name: Build and push image to ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: forest-cover-type-prediction
+          ECR_REPOSITORY: forestcoverprediction
           IMAGE_TAG: latest
         run: |
           docker build -t $ECR_REGISTRY/ECR_REPOSITORY/IMAGE_TAG . --build-arg TEST1=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg TEST2=${{ secrets.AWS_SECRET_ACCESS_KEY }}
