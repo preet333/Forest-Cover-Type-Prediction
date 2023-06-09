@@ -6,6 +6,10 @@ WORKDIR /app
 COPY . /app
 RUN pip install --upgrade pip
 
+RUN pip install botocore
+RUN pip install awscli
+RUN pip install boto3
+
 
 RUN pip install -r requirements.txt
 ARG TEST1
