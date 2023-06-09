@@ -34,12 +34,12 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: forestcoverprediction
+          ECR_REPOSITORY: forest-cover-type-prediction
           IMAGE_TAG: latest
         run: |
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t public.ecr.aws/o7c5p6w3/forestcoverprediction:latest . --build-arg TEST1=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg TEST2=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          docker push public.ecr.aws/o7c5p6w3/forestcoverprediction:latest
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . --build-arg TEST1=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg TEST2=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
