@@ -1,0 +1,24 @@
+name: Forest-Cover-Type-CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    path-ignore:
+      - 'README.md'
+  
+jobs:
+  buid-and-push-ecr-image:
+    name: continious Delivery
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: install utilities
+        run: |
+          sudo apt-get update
+          
+      - name: build image
+        run: |
+          docker build -t forest-cover5 . --build-arg TEST1=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg TEST2=${{ secrets.AWS_SECRET_ACCESS_KEY }}
