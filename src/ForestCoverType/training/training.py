@@ -27,16 +27,19 @@ class Training:
         log.info(f"Splitting dataset into train and test completed")
 
         # model Training
-        rf = RandomForestClassifier()
-        rf.fit(x_train, y_train)
+        model = RandomForestClassifier()
+        model.fit(x_train, y_train)
         log.info(f"RandomForestClassifier Model Train Successfully")
 
         # Scoring Model
-        y_pred = rf.predict(x_test)
+        y_pred = model.predict(x_test)
         f1_test_score = f1_score(y_test, y_pred, average='macro')
         test_accuracy_score = accuracy_score(y_test, y_pred)
+        model_name = type(model).__name__
+
         print(test_accuracy_score)
         scores = {
+            'model_name': model_name,
             'test_accuracy': test_accuracy_score,
             'f1_score': f1_test_score
         }
@@ -46,7 +49,7 @@ class Training:
         model_file = self.config['local_model_file']
         model_file_path = os.path.join(training_root_dir, model_file)
         
-        joblib.dump(rf, model_file_path)
+        joblib.dump(model, model_file_path)
         log.info(f"Trained model save at {model_file_path}")
 
         score_file = self.config['score_save']

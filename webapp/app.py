@@ -2,10 +2,12 @@ from flask import Flask, render_template, request
 import joblib
 import numpy as np
 import pandas as pd
+import json
 
 scaler = joblib.load("artifacts/data_preprocessing/scaler.pkl")
 model = joblib.load("artifacts/training/model.pkl")
-
+with open('artifacts/training/score.json', 'r') as f:
+    score = json.load(f)
 
 app = Flask(__name__)
 
@@ -111,8 +113,9 @@ def predict():
     print(aa)
     # scaling test data
     predict = model.predict(aa)
-
-    return render_template('index.html', prediction=predict)
+    model_name = score['model_name']
+    f1_score = score['f1_score']
+    return render_template('index.html', prediction=[predict, model_name, f1_score])
  
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int("5000"), debug=True)    
