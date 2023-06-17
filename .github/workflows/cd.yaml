@@ -65,7 +65,7 @@ jobs:
       
       - name: Run Docker image to serve users
         run: |
-          docker run -d -p 5000:5000 --name=loan ${{ secrets.AWS_ECR_LOGIN_URI }}:latest
+          docker run -d -p 5000:5000 ${{ secrets.AWS_ECR_LOGIN_URI }}:latest
         
       - name: clean previous images and container
         run: |
