@@ -8,7 +8,7 @@ on:
       - 'README.md'
   
 jobs:
-  Continious-Integretion:
+  Integretion:
     name: Continious Integretion
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +21,7 @@ jobs:
 
   buid-and-push-ecr-image:
     name: Continious Delivery
+    needs: Integretion
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
