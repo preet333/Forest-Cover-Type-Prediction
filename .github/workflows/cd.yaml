@@ -42,4 +42,30 @@ jobs:
           # be deployed to ECS.
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . --build-arg TEST1=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg TEST2=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+  
+  Continous-Deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: configure AWS Credentials
+        uses: aws-actions/aws-configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: pull ECR iamge
+        run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_LOGIN_URI }}
+          docker pull ${{ secrets.AWS_ECR_LOGIN_URI }}:latest
+      
+      - name: Run Docker image to serve users
+        run: |
+          docker run -d -p 5000:5000 --name=loan ${{ secrets.AWS_ECR_LOGIN_URI }}:latest
+        
+      - name: clean previous images and container
+        run: |
+          docker system prune -f 
